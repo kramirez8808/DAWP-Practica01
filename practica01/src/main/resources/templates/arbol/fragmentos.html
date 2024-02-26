@@ -37,16 +37,16 @@
                             <h5 class="modal-title">Agregar</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/arboles/guardar}" th:object="${arbol}"
+                        <form th:action="@{/arbol/guardar}" th:object="${arbol}"
                               method="POST" class="was-validated" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="nombreCientifico">Nombre Científico</label>
-                                    <input type="text" class="form-control" name="nombreCientifico" required="true"/>
+                                    <input type="text" class="form-control" id="nombreCientifico" name="nombreCientifico" required="true"/>
                                 </div>
                                 <div class="mb-3">
                                     <label for="edad">Edad</label>
-                                    <input class="form-check-input" type="number" name="edad" id="edad" min="0"/>
+                                    <input type="number" class="form-control" name="edad" id="edad" min="0"/>
                                 </div>
                                 <div class="mb-3">
                                     <label for="frutal">¿Es Frutal?</label>
@@ -87,15 +87,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="arboles, contador : ${arboles}">
+                                        <tr th:each="arbol, contador : ${arboles}">
                                             <td>[[${contador.count}]]</td>
                                             <td>[[${arbol.nombreCientifico}]]</td>
-                                            <td>[[${arbol.edad}]]</td>
+                                            <td>[[${arbol?.edad}]]</td>
                                             <td th:text="${arbol.frutal} ? 'Sí' : 'No'" />
-                                            <td><a th:href="@{/arboles/eliminar/}+${arboles.idArbol}"
+                                            <td><a th:href="@{/arbol/eliminar/}+${arbol.idArbol}"
                                                    class="btn">
                                                    <i class="fa-solid fa-square-minus"></i>Eliminar</a>
-                                                <a th:href="@{/arboles/editar/}+${arboles.idArbol}"
+                                                <a th:href="@{/arbol/editar/}+${arbol.idArbol}"
                                                    class="btn">
                                                    <i class="fa-solid fa-pen-to-square"></i>Actualizar</a></td></tr>
                                     </tbody>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card text-center bg-success text-dark mb-3">
+                        <div class="card text-center bg-dark text-dark mb-3">
                             <div class="card-body">
                                 <h3>Total de Árboles</h3>
                                 <h4 class="fs-2">
@@ -126,13 +126,13 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <form method="POST"
-                          th:action="@{/arboles/guardar}" 
+                          th:action="@{/arbol/guardar}" 
                           th:object="${arbol}"
                           class="was-validated"                          
                           enctype="multipart/form-data">
                         <input type="hidden" name="idArbol" th:field="*{idArbol}"/>
                         <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
-                        <section th:replace="~{arboles/fragmentos :: botonesEditar}"/>
+                        <section th:replace="~{arbol/fragmentos :: botonesEditar}"/>
                         <div id=details>
                             <div class="container">
                                 <div class="row">
@@ -146,16 +146,17 @@
                                                     <label for="nombreCientifico">Nombre Científico</label>
                                                     <input type="text" class="form-control" 
                                                            name="nombreCientifico" th:field="*{nombreCientifico}"
-                                                           required="true">
+                                                           required="true"
+                                                           id="nombreCientifico">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="edad">[[#{arbol.edad}]]</label>
-                                                    <input class="form-check
-                                                              input" type="number" 
-                                                              name="edad" 
-                                                              id="edad" 
-                                                              min="0" 
-                                                              th:field="*{edad}">
+                                                    <input  type="number"
+                                                            class="form-control"
+                                                            name="edad"
+                                                            min="0" 
+                                                            th:field="*{edad}"
+                                                            required="true">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="frutal">[[#{arbol.frutal}]]</label>
@@ -186,12 +187,12 @@
             <div class="container py-4 mb-4 bg-dark">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/arboles/listado}" class="btn btn-dark">
+                        <a th:href="@{/arbol/listado}" class="btn btn-dark">
                             <i class="fa-solid fa-backward"></i>Regresar
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/arboles/eliminar/}+${arboles.idArbol}"
+                        <a th:href="@{/arbol/eliminar/}+${arboles.idArbol}"
                            class="btn">
                            <i class="fa-solid fa-square-minus">Eliminar
                         </a>

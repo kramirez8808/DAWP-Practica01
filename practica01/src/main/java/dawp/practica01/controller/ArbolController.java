@@ -58,7 +58,7 @@ public class ArbolController {
     @GetMapping("/eliminar/{idArbol}")
     public String arbolEliminar(Arbol arbol) {
         arbolService.delete(arbol);
-        return "redirect:/arboles/listado";
+        return "redirect:/arbol/listado";
     }
 
     @GetMapping("/editar/{idArbol}")
